@@ -19,7 +19,7 @@
     "url": "git+https://github.com/xguhx/fragments.git"
   },
   "keywords": [],
-  "author": "Gustavo Tavares",
+  "author": "Gustavo Tavares <gmartinez-de-oliveir@myseneca.ca>",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/xguhx/fragments/issues"
@@ -33,6 +33,7 @@
   "dependencies": {
     "compression": "^1.7.4",
     "cors": "^2.8.5",
+    "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "helmet": "^5.0.1",
     "pino": "^7.6.3",
