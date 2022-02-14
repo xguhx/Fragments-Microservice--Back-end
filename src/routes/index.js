@@ -1,7 +1,7 @@
 // src/routes/index.js
 
 const express = require('express');
-const Fragment = require('../model/fragment');
+const { Fragment } = require('../model/fragment');
 const contentType = require('content-type');
 
 // version and author from package.json
@@ -31,6 +31,16 @@ router.get('/', (req, res) => {
     .json(
       createSuccessResponse({ author, githubUrl: 'https://github.com/xguhx/fragments', version })
     );
+});
+
+router.get('/fragments/:id', async (req, res) => {
+  res.status(200).json(await Fragment.byUser(req.params.id));
+  // Send a 200 'OK' response
+  // res
+  //   .status(200)
+  //   .json(
+  //   return Fragment.Fragment.byUser(req.params.id)
+  //   );
 });
 
 const rawBody = () =>

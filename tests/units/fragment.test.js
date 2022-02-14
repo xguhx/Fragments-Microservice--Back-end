@@ -1,7 +1,7 @@
 const { Fragment } = require('../../src/model/fragment');
 
 // Wait for a certain number of ms. Returns a Promise.
-//const wait = async (ms = 10) => new Promise((resolve) => setTimeout(resolve, ms));
+const wait = async (ms = 10) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const validTypes = [
   `text/plain`,
@@ -186,28 +186,28 @@ describe('Fragment class', () => {
       expect(await fragment2.getData()).toEqual(data);
     });
 
-    // test('save() updates the updated date/time of a fragment', async () => {
-    //   const ownerId = '7777';
-    //   const fragment = new Fragment({ ownerId, type: 'text/plain', size: 0 });
-    //   const modified1 = fragment.updated;
-    //   await wait();
-    //   await fragment.save();
-    //   const fragment2 = await Fragment.byId(ownerId, fragment.id);
-    //   expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
-    // });
+    test('save() updates the updated date/time of a fragment', async () => {
+      const ownerId = '7777';
+      const fragment = new Fragment({ ownerId, type: 'text/plain', size: 0 });
+      const modified1 = fragment.updated;
+      await wait();
+      await fragment.save();
+      const fragment2 = await Fragment.byId(ownerId, fragment.id);
+      expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
+    });
 
-    // test('setData() updates the updated date/time of a fragment', async () => {
-    //   const data = Buffer.from('hello');
-    //   const ownerId = '7777';
-    //   const fragment = new Fragment({ ownerId, type: 'text/plain', size: 0 });
-    //   await fragment.save();
-    //   const modified1 = fragment.updated;
-    //   await wait();
-    //   await fragment.setData(data);
-    //   await wait();
-    //   const fragment2 = await Fragment.byId(ownerId, fragment.id);
-    //   expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
-    // });
+    test('setData() updates the updated date/time of a fragment', async () => {
+      const data = Buffer.from('hello');
+      const ownerId = '7777';
+      const fragment = new Fragment({ ownerId, type: 'text/plain', size: 0 });
+      await fragment.save();
+      const modified1 = fragment.updated;
+      await wait();
+      await fragment.setData(data);
+      await wait();
+      const fragment2 = await Fragment.byId(ownerId, fragment.id);
+      expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
+    });
     test("a fragment is added to the list of a user's fragments", async () => {
       const data = Buffer.from('hello');
       const ownerId = '5555';

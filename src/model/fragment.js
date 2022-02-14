@@ -40,8 +40,8 @@ class Fragment {
 
     this.id = id;
     this.ownerId = ownerId;
-    this.created = created || new Date();
-    this.updated = updated || new Date();
+    this.created = created || new Date().toISOString();
+    this.updated = updated || new Date().toISOString();
     this.type = type;
     this.size = size;
   }
@@ -94,6 +94,7 @@ class Fragment {
    * @returns Promise
    */
   save() {
+    this.updated = new Date().toISOString();
     return writeFragment(this);
   }
 
@@ -115,7 +116,7 @@ class Fragment {
       if (!data || data === undefined) throw 'No Buffer!';
 
       this.size = Buffer.from(data).length;
-
+      this.updated = new Date().toISOString();
       return writeFragmentData(this.ownerId, this.id, data);
     } catch (err) {
       throw 'Something went wrong on setData(data)!';
