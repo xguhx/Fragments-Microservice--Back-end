@@ -207,7 +207,7 @@ describe('Fragment class', () => {
     //   await wait();
     //   const fragment2 = await Fragment.byId(ownerId, fragment.id);
     //   expect(Date.parse(fragment2.updated)).toBeGreaterThan(Date.parse(modified1));
-    });
+    // });
     test("a fragment is added to the list of a user's fragments", async () => {
       const data = Buffer.from('hello');
       const ownerId = '5555';
