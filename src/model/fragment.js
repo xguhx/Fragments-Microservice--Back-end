@@ -72,7 +72,12 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-    return await readFragment(ownerId, id);
+    try {
+      if ((await readFragment(ownerId, id)) == undefined) throw 'No User Found!';
+      return await readFragment(ownerId, id);
+    } catch (err) {
+      return Promise.reject(new Error('No User Found:', err));
+    }
   }
 
   /**
@@ -82,11 +87,12 @@ class Fragment {
    * @returns Promise
    */
   static delete(ownerId, id) {
-    try {
-      return deleteFragment(ownerId, id);
-    } catch (err) {
-      return Promise.reject(new Error('fail'));
-    }
+    // this.byId(ownerId, id).then((a) => {
+    //   if (a == undefined) {
+    //     throw 'Error';
+    //   }
+    // });
+    return deleteFragment(ownerId, id);
   }
 
   /**
@@ -113,13 +119,14 @@ class Fragment {
    */
   async setData(data) {
     try {
-      if (!data || data === undefined) throw 'No Buffer!';
-
+      if (!data || data == undefined) {
+        throw 'no Buffer in setData!';
+      }
       this.size = Buffer.from(data).length;
       this.updated = new Date().toISOString();
       return writeFragmentData(this.ownerId, this.id, data);
     } catch (err) {
-      throw 'Something went wrong on setData(data)!';
+      return Promise.reject(new Error('Error in setData:', err));
     }
   }
 
