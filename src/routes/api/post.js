@@ -6,6 +6,7 @@
 
 //Post will get create a new fragment and save it
 const { createSuccessResponse, createErrorResponse } = require('../../response');
+const API_URL = process.env.API_URL;
 const { Fragment } = require('../../model/fragment');
 const logger = require('../../logger');
 
@@ -14,19 +15,24 @@ module.exports = async (req, res) => {
     res.status(415).json(createErrorResponse(415, 'Unsupported Media Type'));
   } else {
     try {
+      const myFragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
+
       logger.info('before save');
 
       //error here
-      await Fragment.save();
+      await myFragment.save();
       logger.info('after save');
-      await Fragment.setData(req.body);
+
+      await myFragment.setData(req.body);
       logger.info('after saveData');
 
-      res.set('Content-Type', Fragment.type);
+      logger.debug({ myFragment }, 'Created Fragment');
+      res.set('Location', API_URL + '/fragments/' + myFragment.id);
+      res.set('Content-Type', myFragment.type);
 
       res.status(201).json(
         createSuccessResponse({
-          fragment: Fragment,
+          fragment: myFragment,
         })
       );
     } catch (err) {
