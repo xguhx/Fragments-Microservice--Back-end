@@ -1,7 +1,7 @@
 const { Fragment } = require('../../src/model/fragment');
 
 // Wait for a certain number of ms. Returns a Promise.
-const wait = async (ms = 10) => new Promise((resolve) => setTimeout(resolve, ms));
+//const wait = async (ms = 10) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const validTypes = [
   `text/plain`,
