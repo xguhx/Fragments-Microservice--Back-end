@@ -40,9 +40,12 @@ RUN npm install
 # Copy src to /app/src/
 COPY ./src ./src
 
+# For baisc Auth
+# Copy our HTPASSWD file
+COPY ./tests/.htpasswd ./tests/.htpasswd
 
 # Start the container by running our server
-CMD npm run
+CMD npm start
 
 
 # The EXPOSE instruction is mostly for documentation
