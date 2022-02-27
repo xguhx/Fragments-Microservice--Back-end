@@ -35,7 +35,8 @@ COPY package*.json /app/
 
 # RUN insrtuction will execute a command and cache this layer.
 # Install node dependencies defined in package-lock.json
-RUN npm install
+# npm ci install the exact versions from package-lock
+RUN npm ci --only=production
 
 # Copy the server
 # Copy src to /app/src/
