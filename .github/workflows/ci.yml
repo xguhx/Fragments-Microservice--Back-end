@@ -60,7 +60,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: xguhx/app:latest
+          tags: xguhx/fragments:latest
 
   unit-tests:
     name: Unit Tests
