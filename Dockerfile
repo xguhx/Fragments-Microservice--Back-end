@@ -42,7 +42,7 @@ COPY ./src ./src
 
 
 # Start the container by running our server
-CMD npm run
+CMD npm start
 
 
 # The EXPOSE instruction is mostly for documentation
