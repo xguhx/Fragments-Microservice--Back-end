@@ -1,7 +1,8 @@
 # This is a Dockerfile, this will instruct docker on how to build our image.
 
 # Lets build our image on top of the Node image (version 16.13.2)
-FROM node:16.13.2
+# Make it super explicit
+FROM node:16.13.2-apline3.14@sha256:d5ff6716e21e03983f8522b6e84f15f50a56e183085553e96d2801fc45dc3c74 AS dependencies
 
 # The Label is used to write metadata
 # So in this case it will cointain information about who wrote this 
