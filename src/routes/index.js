@@ -13,6 +13,7 @@ const router = express.Router();
 // Our authorization middleware
 const { authenticate } = require('../authorization');
 const { createSuccessResponse } = require('../response');
+
 /**
  * Expose all of our API routes on /v1/* to include an API version.
  */
@@ -33,16 +34,6 @@ router.get('/', (req, res) => {
     );
 });
 
-router.get('/fragments/:id', async (req, res) => {
-  res.status(200).json(await Fragment.byUser(req.params.id));
-  // Send a 200 'OK' response
-  // res
-  //   .status(200)
-  //   .json(
-  //   return Fragment.Fragment.byUser(req.params.id)
-  //   );
-});
-
 const rawBody = () =>
   express.raw({
     inflate: true,
@@ -57,6 +48,6 @@ const rawBody = () =>
   });
 
 // Use a raw body parser for POST, which will give a `Buffer` Object or `{}` at `req.body`
-router.post('/fragments', rawBody(), require('./api/post'));
+router.post('/v1/fragments', rawBody(), require('./api/post'));
 
 module.exports = router;

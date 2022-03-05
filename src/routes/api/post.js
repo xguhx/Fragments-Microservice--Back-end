@@ -1,9 +1,3 @@
-// src/routes/api/get.js
-
-/**
- * Get a list of fragments for the current user
- */
-
 //Post will get create a new fragment and save it
 const { createSuccessResponse, createErrorResponse } = require('../../response');
 const API_URL = process.env.API_URL;
@@ -17,14 +11,16 @@ module.exports = async (req, res) => {
     try {
       const myFragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
 
+      //Fragment not Saving
       logger.info('before save');
-
-      //error here
       await myFragment.save();
       logger.info('after save');
 
       await myFragment.setData(req.body);
       logger.info('after saveData');
+
+      let requestedFragment = await Fragment.byId(req.user, myFragment.id);
+      logger.debug({ requestedFragment }, 'REQUESTED FRAGMENT FROM DB');
 
       logger.debug({ myFragment }, 'Created Fragment');
       res.set('Location', API_URL + '/fragments/' + myFragment.id);

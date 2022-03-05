@@ -19,22 +19,7 @@ class Fragment {
   constructor({ id = nanoid(), ownerId, created, updated, type, size = 0 }) {
     if (!ownerId || !type) throw 'Missing Arguments on Fragment constructor';
 
-    if (
-      isNaN(size) ||
-      !(
-        size === 0 ||
-        size === 1 ||
-        size === 2 ||
-        size === 3 ||
-        size === 4 ||
-        size === 5 ||
-        size === 6 ||
-        size === 7 ||
-        size === 8 ||
-        size === 9
-      )
-    )
-      throw 'Size is not a Number';
+    if (isNaN(size) || size < 0 || typeof size != 'number') throw 'Size is not a Number';
 
     if (type != 'text/plain' && type != 'text/plain; charset=utf-8') throw 'Wrong Type';
 
@@ -74,7 +59,9 @@ class Fragment {
   static async byId(ownerId, id) {
     try {
       if ((await readFragment(ownerId, id)) == undefined) throw 'No User Found!';
-      return await readFragment(ownerId, id);
+      let fragments = await readFragment(ownerId, id);
+
+      return fragments;
     } catch (err) {
       return Promise.reject(new Error('No User Found:', err));
     }
@@ -122,7 +109,7 @@ class Fragment {
       if (!data || data == undefined) {
         throw 'no Buffer in setData!';
       }
-      this.size = Buffer.from(data).length;
+      this.size = data.length;
       this.updated = new Date().toISOString();
       return writeFragmentData(this.ownerId, this.id, data);
     } catch (err) {
