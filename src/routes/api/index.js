@@ -13,6 +13,7 @@ router.get('/fragments', require('./get'));
 
 // Other routes will go here later on...
 
-router.get('/fragments/:id', require('./getid'));
+router.get(['/fragments/:id', '/fragments/:id.md'], require('./getid'));
+router.get('/fragments/:id/info', require('./getinfo'));
 
 module.exports = router;

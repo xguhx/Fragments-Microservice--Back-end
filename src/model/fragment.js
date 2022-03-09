@@ -21,7 +21,15 @@ class Fragment {
 
     if (isNaN(size) || size < 0 || typeof size != 'number') throw 'Size is not a Number';
 
-    if (type != 'text/plain' && type != 'text/plain; charset=utf-8') throw 'Wrong Type';
+    if (
+      type != 'text/plain' &&
+      type != 'text/plain; charset=utf-8' &&
+      type != 'text/*' &&
+      type != 'application/json'
+    ) {
+      logger.info('ON CONSTRUCTOR, IF YOU ARE REDING THIS SOMETHING WENT WRONG WITH TYPE');
+      throw 'Wrong Type';
+    }
 
     this.id = id;
     this.ownerId = ownerId;
@@ -105,6 +113,8 @@ class Fragment {
    * @returns Promise
    */
   async setData(data) {
+    logger.debug({ data }, 'Data inside setData()');
+
     try {
       if (!data || data == undefined) {
         throw 'no Buffer in setData!';
@@ -133,7 +143,7 @@ class Fragment {
    */
   get isText() {
     const { type } = contentType.parse(this.type);
-    return type == 'text/plain' ? true : false;
+    return type == 'text/plain' || type == 'text/*' ? true : false;
   }
 
   /**
@@ -141,7 +151,7 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    return [contentType.format({ type: 'text/plain' })];
+    return ['text/plain', 'text/*', 'application/json'];
   }
 
   /**
@@ -150,7 +160,12 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
-    return value == 'text/plain' || value.includes('text/plain; charset=utf-8') ? true : false;
+    return value == 'text/plain' ||
+      value == 'text/*' ||
+      value == 'application/json' ||
+      value.includes('text/plain; charset=utf-8')
+      ? true
+      : false;
   }
 }
 
