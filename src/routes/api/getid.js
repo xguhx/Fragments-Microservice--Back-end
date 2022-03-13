@@ -6,7 +6,7 @@ const path = require('path');
 /**
  * Get a list of fragments for the current user
  */
-const logger = require('../../logger');
+//const logger = require('../../logger');
 
 module.exports = async (req, res) => {
   let url = req.originalUrl;
@@ -24,27 +24,12 @@ module.exports = async (req, res) => {
     fragment = await Fragment.byId(req.user, req.params.id);
 
     data = await fragment.getData();
-    // logger.debug({ data }, 'Data direct from fragment');
 
-    //FIX THIS FOR JSON
-    if (fragment.type == 'application/json') {
-      try {
-        var temp = JSON.parse(data.toString());
-
-        data = new Buffer.from(temp.data.toString('utf-8'));
-        data = JSON.stringify(data);
-      } catch (e) {
-        res.status(400).json('Invalid Json');
-      }
-    } else {
-      logger.info('IM NOT JSON');
-      data = data.toString('utf-8');
-    }
+    data = data.toString('utf-8');
 
     if (ext2 == '.md') {
       data = md.render(data);
     }
-    // buffer = Buffer.from(data, 'utf-8');
   } catch (err) {
     res.status(400).json('Error requesting fragment');
   }

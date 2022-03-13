@@ -47,7 +47,7 @@ COPY ./src ./src
 COPY ./tests/.htpasswd ./tests/.htpasswd
 
 # Start the container by running our server
-CMD npm start
+CMD ["npm", "start"]
 
 
 # The EXPOSE instruction is mostly for documentation
