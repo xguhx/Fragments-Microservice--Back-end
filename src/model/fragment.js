@@ -24,6 +24,7 @@ class Fragment {
     if (
       type != 'text/plain' &&
       type != 'text/plain;charset=UTF-8' &&
+      type != 'text/plain; charset=utf-8' &&
       type != 'text/*' &&
       type != 'application/json'
     ) {
