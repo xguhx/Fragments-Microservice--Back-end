@@ -12,9 +12,35 @@ describe('POST /v1/fragments', () => {
   test('incorrect credentials are denied', () =>
     request(app).post('/v1/fragments').auth('invalid@email.com', 'incorrect_password').expect(401));
 
-  // test('authenticated users get a fragments array', async () => {
-  //   const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1');
-  //   expect(res.statusCode).toBe(200);
-  //   expect(res.body.status).toBe('ok');
-  // });
+  test('authenticated users Can post a Fragment type application/json', async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set({ 'Content-Type': 'application/json' })
+      .send('This is a test');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+  });
+
+  test('authenticated users will receive 415 for wrong media type', async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set({ 'Content-Type': 'application/x-www-form-urlencoded' })
+      .send('This is a test');
+
+    expect(res.body.status).toBe('error');
+    expect(res.statusCode).toBe(415);
+  });
+
+  test('authenticated users Can post a Fragment type text/*', async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set({ 'Content-Type': 'text/*' })
+      .send('This is a test');
+
+    expect(res.statusCode).toBe(201);
+  });
 });

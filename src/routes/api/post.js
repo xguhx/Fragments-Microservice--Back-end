@@ -18,6 +18,7 @@ module.exports = async (req, res) => {
 
   if (!Buffer.isBuffer(req.body)) {
     res.status(415).json(createErrorResponse(415, 'Unsupported Media Type'));
+    return;
   }
   try {
     logger.info('before creating fragment');
@@ -29,8 +30,9 @@ module.exports = async (req, res) => {
     logger.info('after save');
 
     await myFragment.setData(req.body);
+    let test = req.body.toString();
     logger.info('after saveData');
-
+    logger.debug({ test }, 'Created Fragment');
     let requestedFragment = await Fragment.byId(req.user, myFragment.id);
     logger.debug({ requestedFragment }, 'REQUESTED FRAGMENT FROM DB');
 

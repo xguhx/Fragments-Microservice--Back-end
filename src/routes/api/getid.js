@@ -27,6 +27,7 @@ module.exports = async (req, res) => {
 
     data = data.toString('utf-8');
 
+    //.md or /html?
     if (ext2 == '.md') {
       data = md.render(data);
     }
