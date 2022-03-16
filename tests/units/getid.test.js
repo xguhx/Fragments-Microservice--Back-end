@@ -1,4 +1,4 @@
-// tests/unit/get.test.js
+// tests/unit/getid.test.js
 
 const request = require('supertest');
 var path = require('path');
@@ -18,7 +18,7 @@ beforeAll(async () => {
   logger.debug({ filename }, ' Fragment Id');
 });
 
-describe('GET /v1/fragments/', () => {
+describe('GET /v1/fragments/${filename}', () => {
   // If the request is missing the Authorization header, it should be forbidden
   test('unauthenticated requests are denied', () =>
     request(app).get(`/v1/fragments/${filename}`).expect(401));

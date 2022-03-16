@@ -1,4 +1,4 @@
-// tests/unit/get.test.js
+// tests/unit/post.test.js
 
 const request = require('supertest');
 
