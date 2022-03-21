@@ -5,17 +5,6 @@ const { Fragment } = require('../../model/fragment');
 const logger = require('../../logger');
 
 module.exports = async (req, res) => {
-  //if Application json, then parse it to buffer
-  // if (req.get('Content-Type') == 'application/json') {
-  //   let test = req.body;
-  //   logger.debug({ test }, 'req.body');
-
-  //   //fix here
-  //   //THIS IS ALREADY A BUFFER
-  //   /// var buf = Buffer.from(JSON.stringify(req.body));
-  //   //  req.body = buf;
-  // }
-
   if (!Buffer.isBuffer(req.body)) {
     res.status(415).json(createErrorResponse(415, 'Unsupported Media Type'));
     return;

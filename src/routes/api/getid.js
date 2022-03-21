@@ -29,14 +29,14 @@ module.exports = async (req, res) => {
     data = data.toString('utf-8');
 
     //.md or /html?
-    if (ext2 == '.md') {
+    if (ext2 == '.html') {
       data = md.render(data);
     }
   } catch (err) {
-    res.status(400).json('Error requesting fragment');
+    return res.status(400).json('Error requesting fragment');
   }
   //a2
   res.set('Content-Type', fragment.type);
 
-  res.status(200).json(data);
+  return res.status(200).json(data);
 };

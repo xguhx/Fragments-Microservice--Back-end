@@ -4,17 +4,20 @@
  * Get a list of fragments for the current user
  */
 const logger = require('../../logger');
-const { createSuccessResponse } = require('../../response');
+const { createSuccessResponse, createErrorResponse } = require('../../response');
 const { Fragment } = require('../../model/fragment');
 
 module.exports = async (req, res) => {
   logger.info('IM IN GET');
   let fragments;
+  try {
+    fragments = await Fragment.byUser(req.user, false);
 
-  fragments = await Fragment.byUser(req.user, false);
-
-  if (req.query.expand === '1') {
-    fragments = await Fragment.byUser(req.user, true);
+    if (req.query.expand === '1') {
+      fragments = await Fragment.byUser(req.user, true);
+    }
+    res.status(200).json(createSuccessResponse({ fragments }));
+  } catch (err) {
+    res.status(400).json(createErrorResponse('Not able to fetch fragments'));
   }
-  res.status(200).json(createSuccessResponse({ fragments }));
 };

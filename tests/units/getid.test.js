@@ -41,7 +41,7 @@ describe('GET /v1/fragments/${filename}', () => {
 
   test('authenticated users get a Fragment converted into html', async () => {
     const res = await request(app)
-      .get(`/v1/fragments/${filename}.md`)
+      .get(`/v1/fragments/${filename}.html`)
       .auth('user1@email.com', 'password1');
 
     expect(res.statusCode).toBe(200);

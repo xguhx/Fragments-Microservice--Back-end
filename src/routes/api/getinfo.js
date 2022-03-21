@@ -15,10 +15,10 @@ module.exports = async (req, res) => {
 
     // buffer = Buffer.from(data, 'utf-8');
   } catch (err) {
-    res.status(400).json('Error requesting fragment');
+    return res.status(400).json('Error requesting fragment');
   }
   //a2
   res.set('Content-Type', fragment.type);
 
-  res.status(200).json(createSuccessResponse({ fragment }));
+  return res.status(200).json(createSuccessResponse({ fragment }));
 };
