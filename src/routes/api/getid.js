@@ -25,6 +25,7 @@ module.exports = async (req, res) => {
 
     data = await fragment.getData();
 
+    //Should i make it a string? or leave as a buffer?
     data = data.toString('utf-8');
 
     //.md or /html?

@@ -21,14 +21,7 @@ class Fragment {
 
     if (isNaN(size) || size < 0 || typeof size != 'number') throw 'Size is not a Number';
 
-    if (
-      type != 'text/plain' &&
-      type != 'text/plain;charset=UTF-8' &&
-      type != 'text/plain; charset=utf-8' &&
-      type != 'text/*' &&
-      type != 'application/json'
-    ) {
-      logger.info('ON CONSTRUCTOR, IF YOU ARE REDING THIS SOMETHING WENT WRONG WITH TYPE');
+    if (!type.startsWith('text/') && !type.startsWith('application/json')) {
       throw 'Wrong Type';
     }
 
@@ -161,11 +154,11 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
-    return value == 'text/plain' ||
-      value == 'text/*' ||
-      value == 'application/json' ||
-      value.includes('text/plain; charset=utf-8')
-      ? true
+    return value.startsWith('text/') ||
+      // value == 'text/*' ||
+      value.startsWith('application/json')
+      ? // value.includes('text/plain; charset=utf-8')
+        true
       : false;
   }
 }
