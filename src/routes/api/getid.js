@@ -38,5 +38,5 @@ module.exports = async (req, res) => {
   //a2
   res.set('Content-Type', fragment.type);
 
-  return res.status(200).json(data);
+  return res.status(200).send(data);
 };

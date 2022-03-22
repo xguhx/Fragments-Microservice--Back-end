@@ -10,7 +10,7 @@ beforeAll(async () => {
   const res = await request(app)
     .post('/v1/fragments')
     .auth('user1@email.com', 'password1')
-    .set({ 'Content-Type': 'application/json' })
+    .set({ 'Content-Type': 'text/*' })
     .send('This is a test');
 
   filename = path.basename(res.headers.location);
@@ -36,7 +36,6 @@ describe('GET /v1/fragments/${filename}', () => {
       .auth('user1@email.com', 'password1');
 
     expect(res.statusCode).toBe(200);
-    expect(res.body.type).toBe('Buffer');
   });
 
   test('authenticated users get a Fragment converted into html', async () => {
@@ -45,8 +44,5 @@ describe('GET /v1/fragments/${filename}', () => {
       .auth('user1@email.com', 'password1');
 
     expect(res.statusCode).toBe(200);
-    //expect(res.body).toContain('data');
   });
-
-  // TODO: we'll need to add tests to check the contents of the fragments array later
 });
