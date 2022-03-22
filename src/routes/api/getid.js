@@ -6,7 +6,7 @@ const path = require('path');
 /**
  * Get a list of fragments for the current user
  */
-//const logger = require('../../logger');
+const logger = require('../../logger');
 
 module.exports = async (req, res) => {
   let url = req.originalUrl;
@@ -25,12 +25,12 @@ module.exports = async (req, res) => {
 
     data = await fragment.getData();
 
-    //Should i make it a string? or leave as a buffer?
-    data = data.toString('utf-8');
-
-    //.md or /html?
     if (ext2 == '.html') {
-      data = md.render(data);
+      logger.debug({ data }, 'Before ToString');
+      data = md.render(data.toString('utf-8'));
+      logger.debug({ data }, 'After ToString');
+      data = Buffer.from(data, 'utf-8');
+      logger.debug({ data }, 'After Converting to Buffer again');
     }
   } catch (err) {
     return res.status(400).json('Error requesting fragment');

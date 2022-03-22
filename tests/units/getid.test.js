@@ -36,7 +36,7 @@ describe('GET /v1/fragments/${filename}', () => {
       .auth('user1@email.com', 'password1');
 
     expect(res.statusCode).toBe(200);
-    expect(res.body).toBe('This is a test');
+    expect(res.body.type).toBe('Buffer');
   });
 
   test('authenticated users get a Fragment converted into html', async () => {
@@ -45,7 +45,7 @@ describe('GET /v1/fragments/${filename}', () => {
       .auth('user1@email.com', 'password1');
 
     expect(res.statusCode).toBe(200);
-    expect(res.body).toContain('<p>');
+    //expect(res.body).toContain('data');
   });
 
   // TODO: we'll need to add tests to check the contents of the fragments array later
