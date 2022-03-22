@@ -27,16 +27,24 @@ module.exports = async (req, res) => {
 
     if (ext2 == '.html') {
       logger.debug({ data }, 'Before ToString');
+
       data = md.render(data.toString('utf-8'));
+
       logger.debug({ data }, 'After ToString');
+
       data = Buffer.from(data, 'utf-8');
+
       logger.debug({ data }, 'After Converting to Buffer again');
     }
   } catch (err) {
-    return res.status(400).json('Error requesting fragment');
+    return res.status(400).json(err, ': Error requesting fragment');
   }
   //a2
   res.set('Content-Type', fragment.type);
+  res.set('Content-Length', fragment.size);
+
+  //We send it using .send because the buffer will be automatically converted.
+  //We don use json or toString.
 
   return res.status(200).send(data);
 };

@@ -113,7 +113,7 @@ class Fragment {
       if (!data || data == undefined) {
         throw 'no Buffer in setData!';
       }
-      this.size = data.length;
+      this.size = data.byteLength;
       this.updated = new Date().toISOString();
       return writeFragmentData(this.ownerId, this.id, data);
     } catch (err) {
