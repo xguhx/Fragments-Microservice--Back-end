@@ -26,8 +26,8 @@ module.exports = async (req, res) => {
     logger.debug({ requestedFragment }, 'REQUESTED FRAGMENT FROM DB');
 
     logger.debug({ myFragment }, 'Created Fragment');
-    res.set('Location', API_URL + '/fragments/' + myFragment.id);
-    res.set('Content-Type', myFragment.type);
+    res.setHeader('Location', API_URL + '/fragments/' + myFragment.id);
+    res.setHeader('content-type', myFragment.type);
 
     res.status(201).json(
       createSuccessResponse({
@@ -35,6 +35,6 @@ module.exports = async (req, res) => {
       })
     );
   } catch (err) {
-    res.status(400).json(createErrorResponse(400, 'Something when Wrong: ', err));
+    res.status(400).json(createErrorResponse(400, 'Something when Wrong in Post: ', err));
   }
 };

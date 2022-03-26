@@ -40,8 +40,8 @@ module.exports = async (req, res) => {
     return res.status(400).json(err, ': Error requesting fragment');
   }
   //a2
-  res.set('Content-Type', fragment.type);
-  res.set('Content-Length', fragment.size);
+  res.setHeader('Content-Type', fragment.type);
+  res.setHeader('Content-Length', fragment.size);
 
   //We send it using .send because the buffer will be automatically converted.
   //We don use json or toString.

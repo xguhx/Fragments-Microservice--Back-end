@@ -21,7 +21,7 @@ class Fragment {
 
     if (isNaN(size) || size < 0 || typeof size != 'number') throw 'Size is not a Number';
 
-    if (!type.startsWith('text/') && !type.startsWith('application/json')) {
+    if (!Fragment.isSupportedType(type)) {
       throw 'Wrong Type';
     }
 
@@ -136,8 +136,7 @@ class Fragment {
    * @returns {boolean} true if fragment's type is text/*
    */
   get isText() {
-    const { type } = contentType.parse(this.type);
-    return type == 'text/plain' || type == 'text/*' ? true : false;
+    return this.mimeType.startsWith('text/') ? true : false;
   }
 
   /**

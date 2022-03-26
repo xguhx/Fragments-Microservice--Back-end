@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+.docker.env
+.hurl_1.6.1_amd64.deb
