@@ -11,7 +11,7 @@
     "test:watch": "jest -c jest.config.js --runInBand --watch --",
     "test": "jest -c jest.config.js --runInBand --",
     "coverage": "jest -c jest.config.js --runInBand --coverage",
-    "lint": "eslint --config .eslintrc.js src/** tests/units/**",
+    "lint": "eslint --config .eslintrc.js src/** tests/**/*.js",
     "start": "node src/index.js | pino-pretty ",
     "dev": "LOG_LEVEL=debug nodemon ./src/index.js --watch src | pino-pretty",
     "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src | pino-pretty "
