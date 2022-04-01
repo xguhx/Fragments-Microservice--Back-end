@@ -3,10 +3,10 @@
 POST http://localhost:8080/v1/fragments
 # user1@email.com:password1
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
-# We're sending a plain text fragment
+# We're sending a multipart/form-data
 Content-Type: multipart/form-data
 # Body of the request goes in ```...``` when it's a string
 ```This is a fragment!```
 
-# 1. We expect to get back an HTTP 201
+# 1. We expect to get back an HTTP 415
 HTTP/1.1 415
