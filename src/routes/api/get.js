@@ -18,6 +18,6 @@ module.exports = async (req, res) => {
     }
     res.status(200).json(createSuccessResponse({ fragments }));
   } catch (err) {
-    res.status(400).json(createErrorResponse(400, 'Not able to fetch fragments'));
+    res.status(404).json(createErrorResponse(404, 'Not able to fetch fragments'));
   }
 };

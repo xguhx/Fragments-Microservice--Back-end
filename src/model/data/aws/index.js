@@ -125,13 +125,6 @@ async function deleteFragment(ownerId, id) {
     logger.error({ err, Bucket, Key }, 'Error uploading fragment data to S3');
     throw new Error('unable to upload fragment data');
   }
-
-  // return Promise.all([
-  //   // Delete metadata
-  //   metadata.del(ownerId, id),
-  //   // Delete data
-  //   data.del(ownerId, id),
-  // ]);
 }
 
 module.exports.listFragments = listFragments;

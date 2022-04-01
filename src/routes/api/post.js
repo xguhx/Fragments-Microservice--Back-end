@@ -13,7 +13,6 @@ module.exports = async (req, res) => {
     logger.info('before creating fragment');
     const myFragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
 
-    //Fragment not Saving
     logger.info('before save');
     await myFragment.save();
     logger.info('after save');
@@ -26,10 +25,10 @@ module.exports = async (req, res) => {
     logger.debug({ requestedFragment }, 'REQUESTED FRAGMENT FROM DB');
 
     logger.debug({ myFragment }, 'Created Fragment');
-    res.setHeader('Location', API_URL + '/fragments/' + myFragment.id);
+    res.setHeader('Location', API_URL + '/v1/fragments/' + myFragment.id);
     res.setHeader('content-type', myFragment.type);
 
-    res.status(201).json(
+    return res.status(201).json(
       createSuccessResponse({
         fragment: myFragment,
       })
