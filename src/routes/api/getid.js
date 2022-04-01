@@ -4,8 +4,9 @@ var md = require('markdown-it')();
 const path = require('path');
 
 /**
- * Get a list of fragments for the current user
+ * Get a fragments for the current user
  */
+const { createErrorResponse } = require('../../response');
 const logger = require('../../logger');
 
 module.exports = async (req, res) => {
@@ -37,7 +38,7 @@ module.exports = async (req, res) => {
       logger.debug({ data }, 'After Converting to Buffer again');
     }
   } catch (err) {
-    return res.status(400).json(err, ': Error requesting fragment');
+    return res.status(400).json(createErrorResponse(400, ': Error requesting fragment'));
   }
   //a2
   res.setHeader('Content-Type', fragment.type);

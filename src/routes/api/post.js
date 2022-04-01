@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
     logger.debug({ requestedFragment }, 'REQUESTED FRAGMENT FROM DB');
 
     logger.debug({ myFragment }, 'Created Fragment');
-    res.setHeader('Location', API_URL + '/v1/fragments/' + myFragment.id);
+    res.setHeader('Location', API_URL + '/fragments/' + myFragment.id);
     res.setHeader('content-type', myFragment.type);
 
     res.status(201).json(
