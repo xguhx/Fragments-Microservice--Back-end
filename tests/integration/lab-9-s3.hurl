@@ -56,7 +56,7 @@ Content-Type: text/plain
 # ================================================================================================================
 # Delete the created fragment
 
-# 2. Try to Delete the fragment we just posted by its URL
+# 2. Try to Delete the fragment by its URL
 DELETE {{url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
@@ -66,7 +66,7 @@ HTTP/1.1 200
 # ================================================================================================================
 #Try to get the deleted fragment
 
-# 2. Try to Delete the fragment we just posted by its URL
+# 2. Try to GET the deleted fragment by its URL
 GET {{url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
