@@ -49,5 +49,6 @@ const rawBody = () =>
 
 // Use a raw body parser for POST, which will give a `Buffer` Object or `{}` at `req.body`
 router.post('/v1/fragments', rawBody(), require('./api/post'));
+router.put('/v1/fragments/:id', rawBody(), require('./api/put'));
 
 module.exports = router;

@@ -107,8 +107,6 @@ class Fragment {
    * @returns Promise
    */
   async setData(data) {
-    logger.debug({ data }, 'Data inside setData()');
-
     try {
       if (!data || data == undefined) {
         throw 'no Buffer in setData!';
@@ -144,7 +142,16 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    return ['text/plain', 'text/*', 'application/json'];
+    return [
+      'text/plain',
+      'text/*',
+      'application/json',
+      'text/markdown',
+      'text/html',
+      'image/png',
+      'image/jpeg',
+      'image/webp',
+    ];
   }
 
   /**
@@ -154,10 +161,9 @@ class Fragment {
    */
   static isSupportedType(value) {
     return value.startsWith('text/') ||
-      // value == 'text/*' ||
-      value.startsWith('application/json')
-      ? // value.includes('text/plain; charset=utf-8')
-        true
+      value.startsWith('application/json') ||
+      value.startsWith('image/')
+      ? true
       : false;
   }
 }
