@@ -1,4 +1,4 @@
-// src/routes/api/getid.js
+// src/routes/api/getinfo.js
 const { Fragment } = require('../../model/fragment');
 /**
  * Get a fragment metadata for the current user
