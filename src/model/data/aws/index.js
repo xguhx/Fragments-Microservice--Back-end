@@ -113,7 +113,7 @@ async function deleteFragment(ownerId, id) {
     Key: `${ownerId}/${id}`,
   };
 
-  // Create a PUT Object command to send to S3
+  // Create a DELETE Object command to send to S3
   const command = new DeleteObjectCommand(params);
 
   try {
@@ -122,8 +122,8 @@ async function deleteFragment(ownerId, id) {
   } catch (err) {
     // If anything goes wrong, log enough info that we can debug
     const { Bucket, Key } = params;
-    logger.error({ err, Bucket, Key }, 'Error uploading fragment data to S3');
-    throw new Error('unable to upload fragment data');
+    logger.error({ err, Bucket, Key }, 'Error deleting fragment data to S3');
+    throw new Error('unable to delete fragment data');
   }
 }
 
