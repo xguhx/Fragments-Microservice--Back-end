@@ -11,7 +11,7 @@ const s3Client = require('./s3Client');
 const { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
 
 // Writes a fragment to DynamoDB. Returns a Promise.
-async function writeFragment(fragment) {
+function writeFragment(fragment) {
   // Configure our PUT params, with the name of the table and item (attributes and keys)
   const params = {
     TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
@@ -22,7 +22,7 @@ async function writeFragment(fragment) {
   const command = new PutCommand(params);
 
   try {
-    return await ddbDocClient.send(command);
+    return ddbDocClient.send(command);
   } catch (err) {
     logger.warn({ err, params, fragment }, 'error writing fragment to DynamoDB');
     throw err;
