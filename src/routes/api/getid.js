@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
   let fragment;
   let data;
   try {
-    fragment = await Fragment.byId(req.user, req.params.id);
+    fragment = new Fragment(await Fragment.byId(req.user, req.params.id));
 
     data = await fragment.getData();
 
