@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     fragment = new Fragment(await Fragment.byId(req.user, req.params.id));
 
     data = await fragment.getData();
-    data = fragment.convertData(data, ext2);
+    if (ext2) data = await fragment.convertData(data, ext2);
   } catch (err) {
     logger.debug({ err }, 'Error on requesting Fragment');
     return res.status(404).json(createErrorResponse(404, ': Error requesting fragment: ' + err));
