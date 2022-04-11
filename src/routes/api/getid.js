@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
   res.setHeader('Content-Length', fragment.size);
 
   //We send it using .send because the buffer will be automatically converted.
-  //We don use json or toString.
+  //We dont use json or toString.
 
   return res.status(200).send(data);
 };

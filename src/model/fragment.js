@@ -60,11 +60,15 @@ class Fragment {
    */
   static async byId(ownerId, id) {
     try {
+      logger.debug({ ownerId, id }, 'Fragment.byId() OwnderId and Id');
+
       let fragments = await readFragment(ownerId, id);
+      if (!fragments) throw 'No User Found!';
 
       return fragments;
     } catch (err) {
-      return Promise.reject(new Error('No User Found:', err));
+      throw new Error(err);
+      //return Promise.reject(new Error('No User Found:', err));
     }
   }
 
