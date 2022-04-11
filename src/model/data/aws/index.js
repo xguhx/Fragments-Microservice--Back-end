@@ -172,7 +172,7 @@ async function deleteFragment(ownerId, id) {
 
   const paramss3 = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
-    Key: { ownerId, id },
+    Key: `${ownerId}/${id}`,
   };
 
   // Create a DELETE command to send to DynamoDB

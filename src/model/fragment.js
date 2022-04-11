@@ -147,7 +147,6 @@ class Fragment {
   get formats() {
     return [
       'text/plain',
-      'text/*',
       'application/json',
       'text/markdown',
       'text/html',

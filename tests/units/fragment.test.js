@@ -164,7 +164,6 @@ describe('Fragment class', () => {
       });
       expect(fragment.formats).toEqual([
         'text/plain',
-        'text/*',
         'application/json',
         'text/markdown',
         'text/html',
