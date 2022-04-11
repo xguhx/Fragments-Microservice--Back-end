@@ -38,6 +38,7 @@ module.exports = async (req, res) => {
       logger.debug({ data }, 'After Converting to Buffer again');
     }
   } catch (err) {
+    logger.debug({ err }, 'Error on requesting Fragment');
     return res.status(404).json(createErrorResponse(404, ': Error requesting fragment: ' + err));
   }
   //a2

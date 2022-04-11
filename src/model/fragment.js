@@ -60,7 +60,6 @@ class Fragment {
    */
   static async byId(ownerId, id) {
     try {
-      if ((await readFragment(ownerId, id)) == undefined) throw 'No User Found!';
       let fragments = await readFragment(ownerId, id);
 
       return fragments;

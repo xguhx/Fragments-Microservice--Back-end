@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     logger.info('after save');
 
     await myFragment.setData(req.body);
-    logger.info('after saveData');
+    logger.info('after setData');
 
     let requestedFragment = await Fragment.byId(req.user, myFragment.id);
     logger.debug({ requestedFragment }, 'REQUESTED FRAGMENT FROM DB');
