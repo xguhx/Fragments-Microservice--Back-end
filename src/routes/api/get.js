@@ -10,11 +10,8 @@ const { Fragment } = require('../../model/fragment');
 module.exports = async (req, res) => {
   let fragments;
   try {
-    fragments = await Fragment.byUser(req.user, false);
+    fragments = await Fragment.byUser(req.user, req.query.expand === '1');
 
-    if (req.query.expand === '1') {
-      fragments = await Fragment.byUser(req.user, true);
-    }
     res.status(200).json(createSuccessResponse({ fragments }));
   } catch (err) {
     res.status(400).json(createErrorResponse(400, 'Not able to fetch fragments'));

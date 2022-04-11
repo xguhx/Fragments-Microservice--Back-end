@@ -1,6 +1,5 @@
 // src/routes/api/getid.js
 const { Fragment } = require('../../model/fragment');
-var md = require('markdown-it')();
 const path = require('path');
 
 /**
@@ -25,23 +24,10 @@ module.exports = async (req, res) => {
     fragment = new Fragment(await Fragment.byId(req.user, req.params.id));
 
     data = await fragment.getData();
-
-    if (ext2 == '.html') {
-      logger.debug({ data }, 'Before ToString');
-
-      data = md.render(data.toString('utf-8'));
-
-      logger.debug({ data }, 'After ToString');
-
-      data = Buffer.from(data, 'utf-8');
-
-      logger.debug({ data }, 'After Converting to Buffer again');
-    }
+    data = fragment.convertData(data, ext2);
   } catch (err) {
     logger.debug({ err }, 'Error on requesting Fragment');
-    return res
-      .status(404)
-      .json(createErrorResponse(404, ': Error requesting fragment: ' + err + ' || ' + fragment));
+    return res.status(404).json(createErrorResponse(404, ': Error requesting fragment: ' + err));
   }
   //a2
   res.setHeader('Content-Type', fragment.type);
