@@ -39,7 +39,9 @@ module.exports = async (req, res) => {
     }
   } catch (err) {
     logger.debug({ err }, 'Error on requesting Fragment');
-    return res.status(404).json(createErrorResponse(404, ': Error requesting fragment: ' + err));
+    return res
+      .status(404)
+      .json(createErrorResponse(404, ': Error requesting fragment: ' + err + ' || ' + fragment));
   }
   //a2
   res.setHeader('Content-Type', fragment.type);
