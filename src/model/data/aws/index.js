@@ -165,13 +165,13 @@ async function listFragments(ownerId, expand = false) {
 // Delete a fragment's metadata and data from memory db. Returns a Promise
 async function deleteFragment(ownerId, id) {
   // Configure our DELETE params, with the name of the table and key (partition key + sort key)
-  let params = {
+  const paramsDynamo = {
     TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
     Key: { ownerId, id },
   };
 
   // Create a DELETE command to send to DynamoDB
-  const command = new DeleteCommand(params);
+  const command = new DeleteCommand(paramsDynamo);
 
   try {
     // Wait for the data to come back from AWS
@@ -180,16 +180,17 @@ async function deleteFragment(ownerId, id) {
     // We may or may not get back any data (e.g., no item found for the given key).
     // If we get back an item (fragment), we'll return it.  Otherwise we'll return `undefined`.
   } catch (err) {
-    logger.warn({ err, params }, 'error reading fragment from DynamoDB');
+    logger.warn({ err, paramsDynamo }, 'error reading fragment from DynamoDB');
     throw err;
   }
 
-  params = {
+  const paramss3 = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     Key: { ownerId, id },
   };
+
   // Create a DELETE Object command to send to S3
-  const command2 = new DeleteObjectCommand(params);
+  const command2 = new DeleteObjectCommand(paramss3);
 
   try {
     // Wait for the data to come back from AWS
@@ -198,7 +199,7 @@ async function deleteFragment(ownerId, id) {
     // We may or may not get back any data (e.g., no item found for the given key).
     // If we get back an item (fragment), we'll return it.  Otherwise we'll return `undefined`.
   } catch (err) {
-    const { Bucket, Key } = params;
+    const { Bucket, Key } = paramss3;
     logger.error({ err, Bucket, Key }, 'Error deleting fragment data to S3');
     throw err;
   }
