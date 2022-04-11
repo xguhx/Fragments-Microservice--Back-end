@@ -161,7 +161,6 @@ jsonpath "$.fragments[1]" == {{fragment2_id}}
 DELETE {{fragment1_url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
-# Getting 400 here, Why?
 HTTP/1.1 200
 
 
