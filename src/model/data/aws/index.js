@@ -170,6 +170,11 @@ async function deleteFragment(ownerId, id) {
     Key: { ownerId, id },
   };
 
+  const paramss3 = {
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Key: { ownerId, id },
+  };
+
   // Create a DELETE command to send to DynamoDB
   const command = new DeleteCommand(paramsDynamo);
 
@@ -183,11 +188,6 @@ async function deleteFragment(ownerId, id) {
     logger.warn({ err, paramsDynamo }, 'error reading fragment from DynamoDB');
     throw err;
   }
-
-  const paramss3 = {
-    Bucket: process.env.AWS_S3_BUCKET_NAME,
-    Key: { ownerId, id },
-  };
 
   // Create a DELETE Object command to send to S3
   const command2 = new DeleteObjectCommand(paramss3);

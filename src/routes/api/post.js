@@ -13,7 +13,11 @@ module.exports = async (req, res) => {
   }
   try {
     logger.info('before creating fragment');
-    const myFragment = new Fragment({ ownerId: req.user, type: req.get('Content-Type') });
+    const myFragment = new Fragment({
+      ownerId: req.user,
+      type: req.get('Content-Type'),
+      size: req.body.byteLength,
+    });
 
     logger.info('before save');
     await myFragment.save();
