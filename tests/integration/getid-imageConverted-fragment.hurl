@@ -6,10 +6,10 @@
 POST http://localhost:8080/v1/fragments
 # user1@email.com:password1
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
-# We're sending a text/markdown fragment
-Content-Type: text/markdown
-# Body of the request goes in ```...``` when it's a string
-file,SpaceWallpaper.jpg
+# We're sending a image/jpeg fragment
+Content-Type: image/jpeg
+# Body of the request
+file,SpaceWallpaper.jpg;
 
 # 1. We expect to get back an HTTP 201
 HTTP/1.1 201
@@ -40,5 +40,19 @@ GET {{url}}.png
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
-Content-Type: image/png
+
+
+
+# ================================================================================================================
+# DELETE the converted fragment
+
+# 2. Try to DELETE the fragment we just posted by its URL 
+DELETE {{url}}
+Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
+
+HTTP/1.1 200
+
+
+
+
 

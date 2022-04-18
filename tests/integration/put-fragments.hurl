@@ -42,8 +42,8 @@ GET {{url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
-Content-Type: text/plain
-body matches "THIS IS POST!"
+[Asserts]
+body == "THIS IS POST!"
 
 # ================================================================================================================
 # Post Authorized text "THIS IS PUT!"
@@ -84,5 +84,14 @@ GET {{url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
-Content-Type: text/plain
-body matches "THIS IS PUT!"
+[Asserts]
+body == "THIS IS PUT!"
+
+# ================================================================================================================
+# DELETE the updated fragment
+
+# 2. Try to DELETE fragment we just posted by its URL
+DELETE {{url}}
+Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
+
+HTTP/1.1 200

@@ -42,5 +42,13 @@ GET {{url}}.html
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
-Content-Type: text/html
-body matches "<strong>THIS IS POST!</strong>"
+[Asserts]
+body contains "<strong>THIS IS POST!</strong>"
+# ================================================================================================================
+# DELETE the converted fragment
+
+# 2. Try to DELETE the fragment we just posted by its URL 
+DELETE {{url}}
+Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
+
+HTTP/1.1 200
