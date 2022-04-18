@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     //This [new Fragment()] is needed because the SDK was not allowing me use getData() in a fragment without making a new fragment.
     fragment = new Fragment(await Fragment.byId(req.user, req.params.id));
     data = await fragment.getData();
-    ext2 ? (ext2 = ext2.substring(1)) : null;
+    ext2 ? (ext2 = ext2.substring(1)) : '';
   } catch (err) {
     logger.debug({ err }, 'Error on requesting Fragment');
     return res.status(404).json(createErrorResponse(404, ': Error requesting fragment: ' + err));
@@ -38,9 +38,7 @@ module.exports = async (req, res) => {
         .status(415)
         .json(createErrorResponse(415, 'Unsupported Media Type for conversion: ' + err));
     }
-  }
 
-  if (ext2) {
     res.setHeader(
       'Content-Type',
       fragment.type.substring(0, fragment.type.indexOf('/')) + '/' + ext2
@@ -48,6 +46,7 @@ module.exports = async (req, res) => {
   } else {
     res.setHeader('Content-Type', fragment.type);
   }
+
   res.setHeader('Content-Length', fragment.size);
 
   //We send it using .send because the buffer will be automatically converted.

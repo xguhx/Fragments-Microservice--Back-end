@@ -48,7 +48,7 @@ body contains "<strong>THIS IS POST!</strong>"
 
 # Fail to Get the converted fragment
 
-# 2. Try to GET the fragment we just posted by its URL + .html
+# 2. Try to GET the fragment we just posted by its URL and fail
 GET {{url}}1.html
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 

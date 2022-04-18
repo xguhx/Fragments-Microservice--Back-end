@@ -106,6 +106,30 @@ class Fragment {
   }
 
   /**
+   * Check for the extension to see if it can be converted to a text type
+   * @returns bool
+   */
+  checkTextExtension(ext2) {
+    const textTypes = ['plain', 'markdown', 'json', 'html'];
+
+    if (textTypes.find((element) => element == ext2)) return true;
+
+    return false;
+  }
+
+  /**
+   * Check for the extension to see if it can be converted to a image type
+   * @returns bool
+   */
+  checkImageExtension(ext2) {
+    const imageTypes = ['png', 'jpeg', 'webp', 'gif'];
+
+    if (imageTypes.find((element) => element == ext2)) return true;
+
+    return false;
+  }
+
+  /**
    * Check for the url and convert the result
    * @returns object
    */
@@ -117,7 +141,7 @@ class Fragment {
     let data;
 
     try {
-      if (ext2 == 'png' || ext2 == 'jpeg' || ext2 == 'webp') {
+      if (this.checkImageExtension(ext2)) {
         data = await sharp(buffer).toFormat(ext2).toBuffer();
         return data;
       }
@@ -126,32 +150,43 @@ class Fragment {
     }
 
     //MD
+    if (this.checkTextExtension(ext2)) {
+      if (ext2 == 'html' && fragment.mimeType.startsWith('text/')) {
+        data = buffer;
+        logger.debug({ data }, 'Before ToString');
 
-    if (ext2 == 'html' && fragment.mimeType.startsWith('text/')) {
-      data = buffer;
-      logger.debug({ data }, 'Before ToString');
+        data = md.render(data.toString('utf-8'));
 
-      data = md.render(data.toString('utf-8'));
+        logger.debug({ data }, 'After ToString');
 
-      logger.debug({ data }, 'After ToString');
+        data = Buffer.from(data, 'utf-8');
 
-      data = Buffer.from(data, 'utf-8');
+        logger.debug({ data }, 'After Converting to Buffer again');
+        return data;
+      }
 
-      logger.debug({ data }, 'After Converting to Buffer again');
-      return data;
-    } else if (
-      ext2 == 'json' &&
-      (fragment.mimeType.startsWith('text/') || fragment.mimeType.startsWith('application'))
-    ) {
-      data = buffer;
-      data = JSON.parse(data.toString('utf-8'));
+      //JSON
+      if (
+        ext2 == 'json' &&
+        (fragment.mimeType.startsWith('text/') || fragment.mimeType.startsWith('application'))
+      ) {
+        data = buffer;
+        data = JSON.parse(data.toString('utf-8'));
 
-      data = Buffer.from(JSON.stringify(data), 'utf-8');
+        data = Buffer.from(JSON.stringify(data), 'utf-8');
 
-      logger.debug({ data }, 'After Converting to Buffer again');
-      return data;
+        logger.debug({ data }, 'After Converting to Buffer again');
+        return data;
+      }
+
+      if (ext2 == 'plain' && fragment.mimeType.startsWith('text/')) {
+        //Quote from David:
+        //"Converting" something like text/html or text/markdown to text/plain means serving it with the text/plain mime type.
+        //You don't need to do anything to the content.
+        return data;
+      }
     } else {
-      throw 'Error parsing Text';
+      throw new Error();
     }
   }
 
