@@ -51,8 +51,7 @@ COPY --from=dependencies /app /app
 
 # Copy the server
 # Copy src to /app/src/
-
-
+COPY ./src /app/src
 
 # For baisc Auth
 # Copy our HTPASSWD file
