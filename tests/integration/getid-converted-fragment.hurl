@@ -45,6 +45,17 @@ HTTP/1.1 200
 [Asserts]
 body contains "<strong>THIS IS POST!</strong>"
 # ================================================================================================================
+
+# Fail to Get the converted fragment
+
+# 2. Try to GET the fragment we just posted by its URL + .html
+GET {{url}}1.html
+Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
+
+HTTP/1.1 404
+
+# ================================================================================================================
+
 # DELETE the converted fragment
 
 # 2. Try to DELETE the fragment we just posted by its URL 

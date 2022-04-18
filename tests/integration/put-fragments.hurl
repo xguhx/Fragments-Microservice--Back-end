@@ -95,3 +95,18 @@ DELETE {{url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
+
+# ================================================================================================================
+# FAIL Post Authorized text "THIS IS PUT!"
+
+# Authenticated POST to /v1/fragments
+PUT {{url}}}
+# user1@email.com:password1
+Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
+# We're sending a plain text fragment
+Content-Type: text/plain
+# Body of the request goes in ```...``` when it's a string
+```THIS IS PUT!```
+
+# 1. We expect to get back an HTTP 201
+HTTP/1.1 404
