@@ -1,4 +1,4 @@
-//Post will get REPLACE a fragment and save it
+//Put will REPLACE a fragment and save it
 //PUT /fragments can create any supported text, image or JSON fragments, with tests. See 4.3.
 
 const { createSuccessResponse, createErrorResponse } = require('../../response');
@@ -20,17 +20,10 @@ module.exports = async (req, res) => {
   }
 
   try {
-    logger.info('before creating fragment');
-    fragment = new Fragment({
-      id: req.params.id,
-      ownerId: req.user,
-      type: req.get('Content-Type'),
-    });
+    //set new content type
+    fragment.type = req.get('Content-Type');
 
-    logger.info('before save');
     await fragment.save();
-    logger.info('after save');
-
     await fragment.setData(req.body);
     logger.info('after saveData');
 
@@ -44,6 +37,7 @@ module.exports = async (req, res) => {
     return res.status(201).json(
       createSuccessResponse({
         fragment: fragment,
+        formats: fragment.formats,
       })
     );
   } catch (err) {

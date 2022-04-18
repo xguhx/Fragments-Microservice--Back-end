@@ -18,47 +18,48 @@ beforeAll(async () => {
   logger.debug({ filename }, ' Fragment Id');
 });
 
-describe('GET /v1/fragments/${filename}', () => {
+describe('PUT /v1/fragments/${filename}', () => {
   // If the request is missing the Authorization header, it should be forbidden
   test('unauthenticated requests are denied', () =>
-    request(app).get(`/v1/fragments/${filename}`).expect(401));
+    request(app).put(`/v1/fragments/${filename}`).expect(401));
 
   // If the wrong username/password pair are used (no such user), it should be forbidden
   test('incorrect credentials are denied', () =>
     request(app)
-      .get(`/v1/fragments/${filename}`)
+      .put(`/v1/fragments/${filename}`)
       .auth('invalid@email.com', 'incorrect_password')
       .expect(401));
 
-  test('authenticated users get a Fragment', async () => {
+  test('authenticated users can PUT a Fragment', async () => {
     const res = await request(app)
-      .get(`/v1/fragments/${filename}`)
+      .put(`/v1/fragments/${filename}`)
+      .set({ 'Content-Type': 'text/plain' })
+      .send('THIS IS PUT')
       .auth('user1@email.com', 'password1');
-
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(201);
   });
 
-  test('authenticated users get a Fragment converted into html', async () => {
+  test('authenticated users cannot finda Fragment', async () => {
     const res = await request(app)
-      .get(`/v1/fragments/${filename}.html`)
+      .put(`/v1/fragments/notafragment`)
+      .set({ 'Content-Type': 'text/plain' })
+      .send('THIS IS PUT')
       .auth('user1@email.com', 'password1');
-
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(404);
   });
 
-  test('authenticated users gets 415 for converting text into image', async () => {
+  test('authenticated users PUT MUST HAVE A BODY AND TYPE ', async () => {
     const res = await request(app)
-      .get(`/v1/fragments/${filename}.png`)
+      .put(`/v1/fragments/${filename}`)
       .auth('user1@email.com', 'password1');
+    expect(res.statusCode).toBe(500);
+  });
 
+  test('authenticated users BOdy is not a buffer ', async () => {
+    const res = await request(app)
+      .put(`/v1/fragments/${filename}`)
+      .send('THIS IS PUT')
+      .auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(415);
-  });
-
-  test('authenticated users gets 200 for converting text into json', async () => {
-    const res = await request(app)
-      .get(`/v1/fragments/${filename}.json`)
-      .auth('user1@email.com', 'password1');
-
-    expect(res.statusCode).toBe(200);
   });
 });

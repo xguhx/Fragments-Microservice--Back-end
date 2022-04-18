@@ -3,6 +3,7 @@ const { nanoid } = require('nanoid');
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
 var md = require('markdown-it')();
+const sharp = require('sharp');
 const logger = require('../logger');
 
 // Functions for working with fragment metadata/data using our DB
@@ -108,8 +109,26 @@ class Fragment {
    * Check for the url and convert the result
    * @returns object
    */
-  async convertData(data, ext2) {
-    if (ext2 == '.html') {
+  async convertData(buffer, ext2, fragment) {
+    //Parse Text and Images here
+    //Sharp
+    //https://www.npmjs.com/package/sharp
+    //https://sharp.pixelplumbing.com/api-output#toformat
+    let data;
+
+    try {
+      if (ext2 == 'png' || ext2 == 'jpeg' || ext2 == 'webp') {
+        data = await sharp(buffer).toFormat(ext2).toBuffer();
+        return data;
+      }
+    } catch (err) {
+      throw 'Error parsing image';
+    }
+
+    //MD
+
+    if (ext2 == 'html' && fragment.mimeType.startsWith('text/')) {
+      data = buffer;
       logger.debug({ data }, 'Before ToString');
 
       data = md.render(data.toString('utf-8'));
@@ -119,9 +138,21 @@ class Fragment {
       data = Buffer.from(data, 'utf-8');
 
       logger.debug({ data }, 'After Converting to Buffer again');
-    }
+      return data;
+    } else if (
+      ext2 == 'json' &&
+      (fragment.mimeType.startsWith('text/') || fragment.mimeType.startsWith('application'))
+    ) {
+      data = buffer;
+      data = JSON.parse(data.toString('utf-8'));
 
-    return data;
+      data = Buffer.from(JSON.stringify(data), 'utf-8');
+
+      logger.debug({ data }, 'After Converting to Buffer again');
+      return data;
+    } else {
+      throw 'Error parsing Text';
+    }
   }
 
   /**

@@ -8,8 +8,7 @@ const logger = require('../../logger');
 
 module.exports = async (req, res) => {
   if (!Buffer.isBuffer(req.body)) {
-    res.status(415).json(createErrorResponse(415, 'Unsupported Media Type'));
-    return;
+    return res.status(415).json(createErrorResponse(415, 'Unsupported Media Type'));
   }
   try {
     logger.info('before creating fragment');
