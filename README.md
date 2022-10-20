@@ -1,14 +1,46 @@
 # Fragments Repository
 
-This is CCP 555 Repository for Labs and Assignments.
+> Fragments is [Microservice](https://aws.amazon.com/microservices/) that can convert Images and Text in different formats.
 
-Made by Gustavo Tavares. Student ID: 167583186.
+> It is fully connected to AWS like Cognito, ECR, Elastic Beanstalk and S3.
+
+> It uses Continuous Integration using GitHub actions through this [yml](https://github.com/xguhx/fragments/blob/main/.github/workflows/ci.yml) file.
+
+> It uses Continuous Delivery using GitHub actions through this [yml](https://github.com/xguhx/fragments/blob/main/.github/workflows/cd.yml) file.
+
 
 ---
 
-## Project Repo for CCP 555
+### This app was made using: 
 
-<!--- Add more info here -->
+  - @Aws-sdk/client-dynamodb
+  - @Aws-sdk/client-s3
+  - @Aws-sdk/lib-dynamodb
+  - Aws-jwt-verify
+  - Compression
+  - Content-type
+  - Cors
+  - Crypto
+  - Express
+  - Helmet
+  - Http-auth
+  - Http-auth-passport
+  - Markdown-it
+  - Nanoid
+  - Passport
+  - Passport-http-bearer
+  - Pino
+  - Sharp
+  - Stoppable
+  - Jest
+  - Supertest
+
+### How to use it?
+
+- Create an account through AWS Cognito.
+- Post a fragment or upload a Image.
+- Convert a fragment to the desired format.
+
 
 ### Running the Scripts:
 
