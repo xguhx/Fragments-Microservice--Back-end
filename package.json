@@ -1,8 +1,8 @@
 {
   "name": "fragments",
   "private": true,
-  "version": "0.11.7",
-  "description": "Fragments back-end API for Winter 2022",
+  "version": "1.0.1",
+  "description": "Fragments back-end API",
   "engines": {
     "node": ">=16"
   },
@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xguhx/fragments.git"
+    "url": "git+https://github.com/xguhx/Fragments-Microservice--Back-end.git"
   },
   "keywords": [],
-  "author": "Gustavo Tavares <gmartinez-de-oliveir@myseneca.ca>",
+  "author": "Gustavo Tavares <gustavotavaresdev@gmail.com>",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/xguhx/fragments/issues"
+    "url": "https://github.com/xguhx/Fragments-Microservice--Back-end/issues"
   },
-  "homepage": "https://github.com/xguhx/fragments#readme",
+  "homepage": "https://github.com/xguhx/Fragments-Microservice--Back-end#readme",
   "devDependencies": {
     "eslint": "^8.6.0",
     "jest": "^27.4.7",
