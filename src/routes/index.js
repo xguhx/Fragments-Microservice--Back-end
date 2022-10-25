@@ -30,7 +30,11 @@ router.get('/', (req, res) => {
   res
     .status(200)
     .json(
-      createSuccessResponse({ author, githubUrl: 'https://github.com/xguhx/fragments', version })
+      createSuccessResponse({
+        author,
+        githubUrl: 'https://github.com/xguhx/Fragments-Microservice--Back-end',
+        version,
+      })
     );
 });
 

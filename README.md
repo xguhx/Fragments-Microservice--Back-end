@@ -4,43 +4,41 @@
 
 > It is fully connected to AWS like Cognito, ECR, Elastic Beanstalk and S3.
 
-> It uses Continuous Integration using GitHub actions through this [yml](https://github.com/xguhx/fragments/blob/main/.github/workflows/ci.yml) file.
+> It uses Continuous Integration using GitHub actions through this [yml](https://github.com/xguhx/Fragments-Microservice--Back-end/blob/main/.github/workflows/ci.yml) file.
 
-> It uses Continuous Delivery using GitHub actions through this [yml](https://github.com/xguhx/fragments/blob/main/.github/workflows/cd.yml) file.
-
+> It uses Continuous Delivery using GitHub actions through this [yml](https://github.com/xguhx/Fragments-Microservice--Back-end/blob/main/.github/workflows/cd.yml) file.
 
 ---
 
-### This app was made using: 
+### This app was made using:
 
-  - @Aws-sdk/client-dynamodb
-  - @Aws-sdk/client-s3
-  - @Aws-sdk/lib-dynamodb
-  - Aws-jwt-verify
-  - Compression
-  - Content-type
-  - Cors
-  - Crypto
-  - Express
-  - Helmet
-  - Http-auth
-  - Http-auth-passport
-  - Markdown-it
-  - Nanoid
-  - Passport
-  - Passport-http-bearer
-  - Pino
-  - Sharp
-  - Stoppable
-  - Jest
-  - Supertest
+- @Aws-sdk/client-dynamodb
+- @Aws-sdk/client-s3
+- @Aws-sdk/lib-dynamodb
+- Aws-jwt-verify
+- Compression
+- Content-type
+- Cors
+- Crypto
+- Express
+- Helmet
+- Http-auth
+- Http-auth-passport
+- Markdown-it
+- Nanoid
+- Passport
+- Passport-http-bearer
+- Pino
+- Sharp
+- Stoppable
+- Jest
+- Supertest
 
 ### How to use it?
 
 - Create an account through AWS Cognito.
 - Post a fragment or upload a Image.
 - Convert a fragment to the desired format.
-
 
 ### Running the Scripts:
 
