@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   //Check if Fragment Exists:
   let fragment;
   try {
-    fragment = await Fragment.byId(req.user, req.params.id);
+    fragment = new Fragment(await Fragment.byId(req.user, req.params.id));
   } catch (err) {
     return res.status(404).json(createErrorResponse(404, 'No Fragment was found with this id'));
   }
