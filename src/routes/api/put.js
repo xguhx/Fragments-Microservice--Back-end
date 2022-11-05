@@ -23,8 +23,8 @@ module.exports = async (req, res) => {
     //set new content type
     fragment.type = req.get('Content-Type');
 
-    await fragment.save();
     await fragment.setData(req.body);
+    await fragment.save();
     logger.info('after saveData');
 
     const requestedFragment = await Fragment.byId(req.user, fragment.id);
