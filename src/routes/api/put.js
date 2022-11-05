@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
     await fragment.setData(req.body);
     logger.info('after saveData');
 
-    let requestedFragment = await Fragment.byId(req.user, fragment.id);
+    const requestedFragment = await Fragment.byId(req.user, fragment.id);
     logger.debug({ requestedFragment }, 'REQUESTED FRAGMENT FROM DB');
 
     logger.debug({ fragment }, 'Created Fragment');
@@ -41,6 +41,7 @@ module.exports = async (req, res) => {
       })
     );
   } catch (err) {
-    res.status(400).json(createErrorResponse(400, 'Something when Wrong in Put: ', err.message));
+    logger.fatal({ err }, 'Put Error');
+    res.status(400).json(createErrorResponse(400, `Something went wrong in Put: ${err.message} `));
   }
 };
