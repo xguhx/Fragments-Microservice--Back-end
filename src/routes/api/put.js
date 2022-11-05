@@ -41,6 +41,6 @@ module.exports = async (req, res) => {
       })
     );
   } catch (err) {
-    res.status(400).json(createErrorResponse(400, 'Something when Wrong in Post: ', err));
+    res.status(400).json(createErrorResponse(400, 'Something when Wrong in Put: ', err.message));
   }
 };
